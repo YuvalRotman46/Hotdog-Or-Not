@@ -11,6 +11,17 @@ import numpy
 import matplotlib
 
 
+ROOT_DIR_PATH = "./../"
+# R_PATH stands for relative
+DATASET_PATH = f"{ROOT_DIR_PATH}dataset"
+TRAIN_SET_R_PATH = "train"
+TEST_SET_R_PATH = "test"
+HOT_DOG_R_PATH = "hot_dog"
+NOT_HOT_DOG_R_PATH = "not_hot_dog"
+
+IMG_DIMS = (255, 255)
+
+
 def get_image_vector(img_path, dims):
     """
     This function gets an image's path and dimensions and than returns the resized(by the
@@ -53,9 +64,32 @@ def get_dir_images_vector_list(dir_path, dims):
     return imgs_vecs
 
 
+def get_set_by_r_dir_path(r_dir_path):
+    set_dir_path = f"{DATASET_PATH}/{r_dir_path}"
+
+    set_x = get_dir_images_vector_list(f"{set_dir_path}/{HOT_DOG_R_PATH}", IMG_DIMS)
+    set_y = []
+    for i in range(len(set_x)):
+        set_y.append([1, 0])
+
+    not_hotdog_set_x = get_dir_images_vector_list(f"{set_dir_path}/{NOT_HOT_DOG_R_PATH}", IMG_DIMS)
+    for i in range(len(not_hotdog_set_x)):
+        set_y.append([0, 1])
+
+    set_x.extend(not_hotdog_set_x)
+
+    return numpy.array(set_x), numpy.array(set_y)
+
+
 def load_dataset():
-    raise NotImplementedError()
+    """
+    This function prepares the training and evaluating data sets.
+    The sets contain a vector of X and Y vectors each, for training and evaluating.
+    :return training and testing sets:
+    :rtype C{tuple, tuple}
+    """
 
+    train_set = get_set_by_r_dir_path(TRAIN_SET_R_PATH)
+    test_set = get_set_by_r_dir_path(TEST_SET_R_PATH)
 
-if __name__ == '__main__':
-    print(os.listdir("../venv"))
+    return train_set, test_set

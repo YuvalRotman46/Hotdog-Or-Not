@@ -11,6 +11,9 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    detector = classifier.Classifier()
-    detector.load_model()
+    try:
+        detector = classifier.Classifier()
+        detector.load_model()
+    except NotImplementedError:
+        print("core is not implemented")
     app.run()
