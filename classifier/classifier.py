@@ -9,7 +9,7 @@ import tensorflow as tf
 import keras
 import classifier.data_preprocessor
 
-EPOCHS = 80
+EPOCHS = 40
 BATCH_SIZE = 50
 
 IMG_DIMS = classifier.data_preprocessor.IMG_DIMS

@@ -1,4 +1,6 @@
 import os
+import datetime
+
 from flask import Flask, render_template, request, make_response
 import classifier.classifier
 
@@ -26,13 +28,14 @@ def handle_single_page():
     if request.method == "POST":
         if request.files:
             image = request.files["image"]
-            img_name = "image.{}".format(image.filename.split(".")[-1])
+            date = str(datetime.datetime.now())
+            img_name = "{}.{}".format(date, image.filename.split(".")[-1])
             image.save(os.path.join("./static/uploads", img_name))
             print("img saved !")
             print("detecting img...")
             result = detector.classify(f"./static/uploads/{img_name}")
 
-            return make_response(render_template(RESPONSE_PATH, img_name=img_name, hotdog_text=f"This is {result}"))
+            return render_template(RESPONSE_PATH, img_name=img_name, hotdog_text=f"This is {result}")
 
     return render_template(INDEX_PATH)
 
