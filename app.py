@@ -12,10 +12,12 @@ detector = None
 try:
     detector = classifier.classifier.Core()
     detector.load()
+    print("model has been loaded")
 except NotImplementedError:
     print("core is not implemented")
     exit(-1)
 except FileNotFoundError:
+    print("training brand new model")
     detector.train()
 
 
