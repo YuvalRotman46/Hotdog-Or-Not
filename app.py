@@ -30,7 +30,7 @@ def handle_single_page():
             image.save(os.path.join("./static/uploads", img_name))
             print("img saved !")
             print("detecting img...")
-            result = detector.classify(f"../static/uploads/{img_name}")
+            result = detector.classify(f"./static/uploads/{img_name}")
 
             return make_response(render_template(RESPONSE_PATH, img_name=img_name, hotdog_text=f"This is {result}"))
 

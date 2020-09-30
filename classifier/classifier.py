@@ -48,12 +48,12 @@ class Core:
         model.add(keras.layers.Dense(10))
         model.add(keras.layers.Dense(10))
         # output layer
-        model.add(keras.layers.Dense(2), activation='softmax')
+        model.add(keras.layers.Dense(2, activation='softmax'))
         return model
 
     @staticmethod
     def build_model(model):
-        model.compile(loss='categorical_crossentropy', optimizer='adam', metrix=['acc'])
+        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 
     @staticmethod
     def train_model(model):
@@ -65,8 +65,8 @@ class Core:
         test_y = test_set[1]
 
         history = model.fit(train_x, train_y, batch_size=BATCH_SIZE, epochs=EPOCHS,
-                            validation_data=(test_x, test_y), vrebose=2)
-        model.save()
+                            validation_data=(test_x, test_y), verbose=2)
+        model.save(MODEL_PATH)
 
     @staticmethod
     def load_model():

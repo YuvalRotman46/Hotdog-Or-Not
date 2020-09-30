@@ -8,10 +8,10 @@ import os
 
 import PIL
 import numpy
-import matplotlib
+import matplotlib.image
 
 
-ROOT_DIR_PATH = "./../"
+ROOT_DIR_PATH = "./"
 # R_PATH stands for relative
 DATASET_PATH = f"{ROOT_DIR_PATH}dataset"
 TRAIN_SET_R_PATH = "train"
@@ -34,7 +34,7 @@ def get_image_vector(img_path, dims):
     :rtype: C{np.array}
     """
 
-    img_arr = numpy.array(matplotlib.image.mpimg.imread(img_path, img_path.split(".")[-1]))
+    img_arr = numpy.array(matplotlib.image.imread(img_path, img_path.split(".")[-1]))
     img = PIL.Image.fromarray(img_arr)
     img = img.resize(dims, PIL.Image.ANTIALIAS)
     img_vec = numpy.array(img)
