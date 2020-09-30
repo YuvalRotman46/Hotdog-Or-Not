@@ -11,9 +11,12 @@ app = Flask(__name__)
 detector = None
 try:
     detector = classifier.classifier.Core()
-    detector.load_model()
+    detector.load()
 except NotImplementedError:
     print("core is not implemented")
+    exit(-1)
+except FileNotFoundError:
+    detector.train()
 
 
 @app.route('/', methods=['GET', 'POST'])
