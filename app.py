@@ -16,7 +16,7 @@ try:
 except NotImplementedError:
     print("core is not implemented")
     exit(-1)
-except FileNotFoundError:
+except IOError:
     print("training brand new model")
     detector.train()
 
